@@ -1,0 +1,35 @@
+<div>
+  <div class="section-header text-center">
+    <h2>Instagram Feed</h2>
+    <div id="insta-feed"></div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Instagram",
+    "settings": [
+	  {
+        "id": "videosrc",
+        "type": "url",
+        "label": "Video source"
+      },
+      {
+        "id": "imgsrc",
+        "type": "url",
+        "label": "Image source"
+      }
+	],
+    "presets": [
+      {
+        "name": "Instagram",
+        "category": "PROMOTIONAL"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

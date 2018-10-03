@@ -1,0 +1,37 @@
+<div id="section-cta">
+  <div class="container">
+    <video class="uk-cover-object uk-position-absolute uk-hidden-touch" autoplay="" loop="" muted="" style="width:100%; object-fit: cover;">
+      <source src="{{ section.settings.videosrc }}" type="video/mp4">
+      <img src="{{ section.settings.videosrc }}">
+    </video>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wide Video",
+  "settings": [
+    {
+      "id": "videosrc",
+      "type": "url",
+      "label": "Video source"
+    },
+	{
+      "id": "imgsrc",
+      "type": "url",
+      "label": "Image source"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wide Video",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

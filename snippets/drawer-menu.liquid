@@ -1,0 +1,145 @@
+  <div class="drawer__inner drawer-left__inner">
+
+    {% if section.settings.drawer_search_enable %}
+      {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
+    {% endif %}
+
+    <ul class="mobile-nav">
+      {%- comment %}<locksmith:9bd0>{% endcomment -%}
+        {%- assign locksmith_e55d_forloop__size = 0 %}{% for link in linklists[section.settings.main_menu_link_list].links %}{% include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: link %}{% if locksmith_transparent %}{% assign locksmith_e55d_forloop__size = locksmith_e55d_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_e55d_forloop__index = nil -%}
+      {%- comment %}</locksmith:9bd0>{% endcomment -%}
+      {% for link in linklists[section.settings.main_menu_link_list].links %}
+        {%- comment %}<locksmith:37d0>{% endcomment -%}
+          {%- include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: link, locksmith_subject_parent: linklists[section.settings.main_menu_link_list] %}{% if locksmith_transparent %}{% if locksmith_e55d_forloop__index == nil %}{% assign locksmith_e55d_forloop__index = 1 %}{% assign locksmith_e55d_forloop__index0 = 0 %}{% else %}{% assign locksmith_e55d_forloop__index = locksmith_e55d_forloop__index | plus: 1 %}{% assign locksmith_e55d_forloop__index0 = locksmith_e55d_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_e55d_forloop__index == 1 %}{% assign locksmith_e55d_forloop__first = true %}{% else %}{% assign locksmith_e55d_forloop__first = false %}{% endif %}{% if locksmith_e55d_forloop__index == locksmith_e55d_forloop__size %}{% assign locksmith_e55d_forloop__last = true %}{% else %}{% assign locksmith_e55d_forloop__last = false %}{% endif %}{% assign locksmith_e55d_forloop__rindex = locksmith_e55d_forloop__size | minus: locksmith_e55d_forloop__index | minus: 1 %}{% assign locksmith_e55d_forloop__rindex0 = locksmith_e55d_forloop__size | minus: locksmith_e55d_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:37d0>{% endcomment -%}
+        {% if link.links != blank %}
+          <li class="mobile-nav__item">
+            <div class="mobile-nav__has-sublist">
+              <a
+                href="{{ link.url }}"
+                class="mobile-nav__link"
+                id="Label-{{ locksmith_e55d_forloop__index }}"
+                {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
+              <div class="mobile-nav__toggle">
+                <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ locksmith_e55d_forloop__index }}" aria-expanded="false">
+                  <span class="icon-fallback-text mobile-nav__toggle-open">
+                    <span class="icon icon-plus" aria-hidden="true"></span>
+                    <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+                  </span>
+                  <span class="icon-fallback-text mobile-nav__toggle-close">
+                    <span class="icon icon-minus" aria-hidden="true"></span>
+                    <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <ul class="mobile-nav__sublist" id="Linklist-{{ locksmith_e55d_forloop__index }}" aria-labelledby="Label-{{ locksmith_e55d_forloop__index }}" role="navigation">
+              {% assign parent_index = locksmith_e55d_forloop__index %}
+              {%- comment %}<locksmith:e876>{% endcomment -%}
+                {%- assign locksmith_cf85_forloop__size = 0 %}{% for childlink in link.links %}{% include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: childlink %}{% if locksmith_transparent %}{% assign locksmith_cf85_forloop__size = locksmith_cf85_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_cf85_forloop__index = nil -%}
+              {%- comment %}</locksmith:e876>{% endcomment -%}
+              {% for childlink in link.links %}
+                {%- comment %}<locksmith:be2a>{% endcomment -%}
+                  {%- include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: childlink, locksmith_subject_parent: link %}{% if locksmith_transparent %}{% if locksmith_cf85_forloop__index == nil %}{% assign locksmith_cf85_forloop__index = 1 %}{% assign locksmith_cf85_forloop__index0 = 0 %}{% else %}{% assign locksmith_cf85_forloop__index = locksmith_cf85_forloop__index | plus: 1 %}{% assign locksmith_cf85_forloop__index0 = locksmith_cf85_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_cf85_forloop__index == 1 %}{% assign locksmith_cf85_forloop__first = true %}{% else %}{% assign locksmith_cf85_forloop__first = false %}{% endif %}{% if locksmith_cf85_forloop__index == locksmith_cf85_forloop__size %}{% assign locksmith_cf85_forloop__last = true %}{% else %}{% assign locksmith_cf85_forloop__last = false %}{% endif %}{% assign locksmith_cf85_forloop__rindex = locksmith_cf85_forloop__size | minus: locksmith_cf85_forloop__index | minus: 1 %}{% assign locksmith_cf85_forloop__rindex0 = locksmith_cf85_forloop__size | minus: locksmith_cf85_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+                {%- comment %}</locksmith:be2a>{% endcomment -%}
+                {% if childlink.links != blank %}
+                <li class="mobile-nav__item">
+                  <div class="mobile-nav__has-sublist">
+                    <a
+                      href="{{ childlink.url }}"
+                      class="mobile-nav__link"
+                      id="Label-{{ parent_index }}-{{ locksmith_cf85_forloop__index }}"
+                      {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                        {{ childlink.title }}
+                    </a>
+                    <div class="mobile-nav__toggle">
+                      <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ parent_index }}-{{ locksmith_cf85_forloop__index }}" aria-expanded="false">
+                        <span class="icon-fallback-text mobile-nav__toggle-open">
+                          <span class="icon icon-plus" aria-hidden="true"></span>
+                          <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+                        </span>
+                        <span class="icon-fallback-text mobile-nav__toggle-close">
+                          <span class="icon icon-minus" aria-hidden="true"></span>
+                          <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="mobile-nav__sublist mobile-nav__subsublist" id="Linklist-{{ parent_index }}-{{ locksmith_cf85_forloop__index }}" aria-labelledby="Label-{{ parent_index }}-{{ locksmith_cf85_forloop__index }}" role="navigation">
+                    {% for grandchildlink in childlink.links %}
+                      {%- comment %}<locksmith:b3b4>{% endcomment -%}
+                        {%- include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: grandchildlink, locksmith_subject_parent: childlink %}{% if locksmith_transparent %}{% else %}{% continue %}{% endif -%}
+                      {%- comment %}</locksmith:b3b4>{% endcomment -%}
+                      <li class="mobile-nav__item">
+                        <a
+                          href="{{ grandchildlink.url }}"
+                          class="mobile-nav__link"
+                          {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
+                            {{ grandchildlink.title | escape }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                {% else %}
+                <li class="mobile-nav__item">
+                  <a
+                    href="{{ childlink.url }}"
+                    class="mobile-nav__link"
+                    {% unless template.name == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}>
+                      {{ childlink.title | escape }}
+                  </a>
+                </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+
+          {% else %}
+
+          <li class="mobile-nav__item">
+            <a
+              href="{{ link.url }}"
+              class="mobile-nav__link"
+              {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                {{ link.title | escape }}
+            </a>
+          </li>
+
+        {% endif %}
+      {% endfor %}
+      {% comment %}
+        Spacer element
+      {% endcomment %}
+      <li class="mobile-nav__spacer"></li>
+
+      {% comment %}
+        If customer accounts are enabled, provide login and create account links
+      {% endcomment %}
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <li class="mobile-nav__item mobile-nav__item--secondary">
+            <a href="/account">{{ 'layout.customer.account' | t }}</a>
+          </li>
+          <li class="mobile-nav__item mobile-nav__item--secondary">
+            {{ 'layout.customer.log_out' | t | customer_logout_link }}
+          </li>
+        {% else %}
+          <li class="mobile-nav__item mobile-nav__item--secondary">
+            {{ 'layout.customer.log_in' | t | customer_login_link }}
+          </li>
+          <li class="mobile-nav__item mobile-nav__item--secondary">
+            {{ 'layout.customer.create_account' | t | customer_register_link }}
+          </li>
+        {% endif %}
+      {% endif %}
+      {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
+        {%- comment %}<locksmith:3053>{% endcomment -%}
+          {%- include 'locksmith-variables', locksmith_scope: 'subject', locksmith_subject: link, locksmith_subject_parent: linklists[section.settings.drawer_bottom_link_list] %}{% if locksmith_transparent %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:3053>{% endcomment -%}
+        <li class="mobile-nav__item mobile-nav__item--secondary"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <!-- //mobile-nav -->
+  </div>
+

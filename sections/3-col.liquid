@@ -1,0 +1,104 @@
+<div class="grid container-3-col">
+  <div class="grid__item one-third small--one-whole">
+    <div class="text-center">
+      <img src="{{section.settings.col-1-image | img_url}}" height="100px">
+      <h2>{{section.settings.col-1-header}}</h2>
+      <p>{{section.settings.col-1-text}}</p>
+    </div>
+  </div>
+  <div class="grid__item one-third small--one-whole">
+    <div class="text-center">
+      <img src="{{section.settings.col-2-image| img_url}}" height="100px">
+      <h2>{{section.settings.col-2-header}}</h2>
+      <p>{{section.settings.col-2-text}}</p>
+    </div>
+  </div>
+  <div class="grid__item one-third small--one-whole">
+    <div class="text-center">
+      <img src="{{section.settings.col-3-image| img_url}}" height="100px">
+      <h2>{{section.settings.col-3-header}}</h2>
+      <p>{{section.settings.col-3-text}}</p>
+    </div>
+  </div>
+</div>
+<style>
+.container-3-col {
+	margin: 0px 200px
+}
+
+@media only screen and (max-width: 1000px) {
+    .container-3-col {
+        margin: 0px 100px
+    }
+}
+  
+@media only screen and (max-width: 600px) {
+    .container-3-col {
+        margin: 0px 50px
+    }
+}
+</style>
+{% schema %}
+{
+"name": "3 Column",
+"settings": [
+{
+"id": "col-1-image",
+"type": "image_picker",
+"label": "Col 1 Image source"
+},
+{
+"id": "col-1-header",
+"type": "text",
+"label": "Col 1 Header"
+},
+{
+"id": "col-1-text",
+"type": "richtext",
+"label": "Col 1 Text"
+},
+{
+"id": "col-2-image",
+"type": "image_picker",
+"label": "Col 2 Image source"
+},
+{
+"id": "col-2-header",
+"type": "text",
+"label": "Col 2 Header"
+},
+{
+"id": "col-2-text",
+"type": "richtext",
+"label": "Col 2 Text"
+},
+{
+"id": "col-3-image",
+"type": "image_picker",
+"label": "Col 3 Image source"
+},
+{
+"id": "col-3-header",
+"type": "text",
+"label": "Col 3 Header"
+},
+{
+"id": "col-3-text",
+"type": "richtext",
+"label": "Col 3 Text"
+}
+],
+"presets": [
+{
+"name": "3 Column"
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
