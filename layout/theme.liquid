@@ -39,6 +39,7 @@
   <!-- CSS ================================================== -->
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'semantic.min.css' | asset_url | stylesheet_tag }}
 
   <!-- Sections ================================================== -->
   <script>
@@ -63,6 +64,7 @@
   </script>
 
   {{ 'jquery-2.2.3.min.js' | asset_url | script_tag }}
+  {{ 'superplaceholder.min.js' | asset_url | script_tag }}
 
   <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script><!--<![endif]-->
   <!--[if lte IE 9]><script src="{{ 'lazysizes.min.js' | asset_url }}"></script><![endif]-->
@@ -172,7 +174,32 @@
   </div>
 
 <script src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=melvynsng.myshopify.com"></script>
-
+<script>
+    $( "#home-featured" ).prepend(`{% include 'home-featured-products' %}`)
+    $( "#custom-search-bar" ).prepend(`{% include 'custom-search-bar' %}`)
+    if ($("input#animate-search").length) {
+        superplaceholder({
+            el: document.querySelector('input#animate-search'),
+            sentences: [ 'Party wines', 'Romantic night'],
+            options: {
+                // delay between letters (in milliseconds)
+                letterDelay: 100, // milliseconds
+                // delay between sentences (in milliseconds)
+                sentenceDelay: 1000,
+                // should start on input focus. Set false to autostart
+                startOnFocus: false,
+                // loop through passed sentences
+                loop: true,
+                // Initially shuffle the passed sentences
+                shuffle: false,
+                // Show cursor or not. Shows by default
+                showCursor: true,
+                // String to show as cursor
+                cursor: '|'
+            }
+        });
+    }
+</script>
 <!-- spurit_uev-added -->
 {% include 'spurit_uev-theme-snippet' %}
 <!-- /spurit_uev-added -->

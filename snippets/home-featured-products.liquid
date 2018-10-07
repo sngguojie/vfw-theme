@@ -1,0 +1,24 @@
+<!-- /snippets/home-featured-products.liquid -->
+
+<div class="ui grid centered ">
+{% for product in collections.all.products %}
+    <div class="five wide column">
+        <div class="ui link cards">
+            <div class="ui card">
+                <div class="image">
+                    <img src="//cdn.shopify.com/s/files/1/0094/8964/5627/{{ product.featured_image }}">
+                </div>
+                <div class="content">
+                    <div class="header">{{ product.title }}</div>
+                    <div class="meta">
+                        <a>{{ product.price }}</a>
+                    </div>
+                    <div class="description">
+                        {{ product.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
