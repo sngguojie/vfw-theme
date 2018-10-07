@@ -1,0 +1,31 @@
+.VerlagText-Black, .VerlagText-Black h1, .VerlagText-Black h2, .VerlagText-Black h3 {
+    font-family: 'VerlagText-Black'!important;
+}
+
+.VerlagText-BlackItalic {
+    font-family: 'VerlagText-BlackItalic'!important;
+}
+
+.VerlagText-BoldItalic {
+    font-family: 'VerlagText-BoldItalic'!important;
+}
+
+.VerlagText-Book {
+    font-family: 'VerlagText-Book'!important;
+}
+
+.VerlagText-BookItalic {
+    font-family: 'VerlagText-BookItalic'!important;
+}
+
+.VerlagText-LightItalic {
+    font-family: 'VerlagText-LightItalic'!important;
+}
+
+.VerlagText-XLight {
+    font-family: 'VerlagText-XLight'!important;
+}
+
+.VerlagText-XLightItalic {
+    font-family: 'VerlagText-XLightItalic'!important;
+}

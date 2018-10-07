@@ -3,15 +3,16 @@
 <div class="ui grid centered ">
 {% for product in collections.all.products %}
     <div class="five wide column">
+        <a class="item" href="{{ product.url }}">
         <div class="ui link cards">
             <div class="ui card">
                 <div class="image">
                     <img src="//cdn.shopify.com/s/files/1/0094/8964/5627/{{ product.featured_image }}">
                 </div>
                 <div class="content">
-                    <div class="header">{{ product.title }}</div>
+                    <div class="header" style="font-family: 'VerlagText-Black'">{{ product.title }}</div>
                     <div class="meta">
-                        <a>{{ product.price }}</a>
+                        <a>{{ product.price | money }}</a>
                     </div>
                     <div class="description">
                         {{ product.content }}
@@ -19,6 +20,7 @@
                 </div>
             </div>
         </div>
+        </a>
     </div>
 {% endfor %}
 </div>
