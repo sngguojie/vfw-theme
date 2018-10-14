@@ -1,0 +1,14 @@
+<script>
+  var perfectForOptions = ['gatherings', 'gift'];
+  var profileOptions = ['cheese', 'chocolate', 'cherry'];
+  {% for tag in product.tags %}
+    console.log('{{ tag }}');
+    if (perfectForOptions.indexOf("{{tag}}") != -1) {
+      $("#perfect-for").prepend('<div class="custom-icon"><img src="{{ tag | append: '.png' | asset_img_url: '50x'}}" /><br/><span>{{tag}}<span></div>')
+    }
+    if (profileOptions.indexOf("{{tag}}") != -1) {
+      $("#profile").prepend('<div class="custom-icon"><img src="{{ tag | append: '.png' | asset_img_url: '50x'}}" /><br/><span>{{tag}}<span></div>')
+    }
+  {% endfor %}
+
+</script>

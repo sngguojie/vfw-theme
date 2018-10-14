@@ -242,9 +242,7 @@
                 content="{{ current_variant.price | divided_by: 100.00 }}"
                 {% unless current_variant.available %}aria-hidden="true"{% endunless %}>
                 {{ current_variant.price | money }}
-                {% if current_variant.compare_at_price > current_variant.price %}
-				<div style="border-radius: 30px; background-color: red; color: #fff; font-weight: bold"> {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}% Off</div>
-                {% endif %}
+                {% include 'discount-label' %}
               </span>
             </div>
 
@@ -355,6 +353,7 @@
     </div>
 
 	{% include 'hypervisual' %}
+  {% include 'add-icons' %}
 
 
     <div id="cbb-frequently-bought-box"></div>
