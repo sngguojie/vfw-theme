@@ -93,7 +93,8 @@
             </span>
           {% endif %}
 		  {% if product.compare_at_price_max > product.price %}
-          <span style="text-decoration: line-through">{{ product.compare_at_price_max | money_without_trailing_zeros }}</span> {{ product.price | money_without_trailing_zeros }} <div style="border-radius: 30px; background-color: red; color: #fff; font-weight: bold"> {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}% Off</div>
+          <span style="text-decoration: line-through">{{ product.compare_at_price_max | money_without_trailing_zeros }}</span> {{ product.price | money_without_trailing_zeros }}
+          <div class="circle" style="background-color: red; color: #fff; font-weight: bold"> {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</div>
           {% else %}
             {{ product.price | money_without_trailing_zeros }}
           {% endif %}
