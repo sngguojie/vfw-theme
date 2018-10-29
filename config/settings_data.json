@@ -26,8 +26,8 @@
     "type_base_family": "quicksand_n4",
     "type_base_size": "17px",
     "type_base_italize_titles": false,
-    "cart_type": "drawer",
-    "cart_notes_enable": true,
+    "cart_type": "page",
+    "cart_notes_enable": false,
     "share_image": "",
     "social_facebook_link": "",
     "social_twitter_link": "",
@@ -114,10 +114,10 @@
       "product-template": {
         "type": "product-template",
         "settings": {
-          "zoom_enable": false,
+          "zoom_enable": true,
           "social_sharing_products": true,
           "product_vendor_enable": true,
-          "image_layout": "stacked",
+          "image_layout": "thumbnails",
           "quantity_enabled": true,
           "product_selector": "radio",
           "enable_payment_button": false,
