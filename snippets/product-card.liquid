@@ -1,0 +1,23 @@
+<div class="item">
+    <a class="custom-card-anchor" href="{{ product.url }}">
+    <div class="custom-card">
+        <div class="image">
+            <img src="{{ product.featured_image.src | img_url: "large" }}">
+        </div>
+        <div class="content">
+            <h2>{{ product.title }}</h2>
+
+            <div class="meta">
+                <span class="price">{{ product.price | money }}</span>
+                <br/>
+                <span class="usual-price">
+                {% if product.compare_at_price_max > product.price %}
+                    {{ product.compare_at_price_max | money }}
+                {% endif %}
+                </span>
+            </div>
+        </div>
+        <a class="ui button" href="{{ product.url }}">View Product</a>
+    </div>
+    </a>
+</div>
