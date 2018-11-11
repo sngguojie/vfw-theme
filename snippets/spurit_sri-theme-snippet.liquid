@@ -1,0 +1,18 @@
+<script>
+    if(typeof(Spurit) === 'undefined'){
+        var Spurit = {};
+    }
+    if(!Spurit.recurringInvoices){
+        Spurit.recurringInvoices = {};
+    }
+    if(!Spurit.recurringInvoices.snippet){
+        Spurit.recurringInvoices.snippet = {};
+    }
+    Spurit.recurringInvoices.snippet.appId = '46';
+    Spurit.recurringInvoices.snippet.shopHash = 'be27a4ee92afb99cdd515309bb93ccf6';
+    Spurit.recurringInvoices.snippet.shopDomain = 'melvynsng.myshopify.com';
+    Spurit.recurringInvoices.snippet.folderStore = 'https://s3.amazonaws.com/shopify-apps/recurring-invoices/store/';
+    Spurit.recurringInvoices.snippet.folderCss = 'https://s3.amazonaws.com/shopify-apps/recurring-invoices/css/';
+    Spurit.recurringInvoices.snippet.moneyFormat = '{{ shop.money_format }}';
+</script>
+<script src="https://s3.amazonaws.com/shopify-apps/recurring-invoices/js/common.js"></script>

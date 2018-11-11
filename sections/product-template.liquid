@@ -1,3 +1,5 @@
+{%- include 'bold-ro' -%}
+{%- include 'bold-product' with product, hide_action: 'break', output: 'none' -%}
 <!-- /templates/product.liquid -->
 <div itemscope itemtype="http://schema.org/Product" id="ProductSection--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-template" data-image-zoom-type="{{ section.settings.zoom_enable }}" data-enable-history-state="true" data-scroll-to-image="{% if section.settings.image_layout == "stacked" %}true{% else %}false{% endif %}">
 
@@ -219,8 +221,15 @@
               {% comment %}
                 Optionally show the 'compare at' or original price of the product.
               {% endcomment %}
-
+              <span id="ProductPrice"
+                  class="product-single__price{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
+                  itemprop="price"
+                  content="{{ current_variant.price | divided_by: 100.00 }}"
+                  {% unless current_variant.available %}aria-hidden="true"{% endunless %}>
+                  {{ current_variant.price | money }}
+                </span>
               {% if current_variant.compare_at_price > current_variant.price %}
+                <br/>
                 <span id="PriceA11y" class="visually-hidden" {% unless current_variant.available %}aria-hidden="true"{% endunless %}>{{ 'products.general.regular_price' | t }}</span>
                 <span class="product-single__price--wrapper" aria-hidden="false">
                   <span id="ComparePrice" class="product-single__price--compare-at">
@@ -236,14 +245,7 @@
                 <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
               {% endif %}
 
-              <span id="ProductPrice"
-                class="product-single__price{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
-                itemprop="price"
-                content="{{ current_variant.price | divided_by: 100.00 }}"
-                {% unless current_variant.available %}aria-hidden="true"{% endunless %}>
-                {{ current_variant.price | money }}
-                {% include 'discount-label' %}
-              </span>
+
             </div>
 
             <hr class="hr--small">
@@ -324,6 +326,7 @@
               {% endif %}
 
               <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
+{{ bold_ro_widget }}
                 <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
                   <span class="btn__text">
                     {% if current_variant.available %}
@@ -333,6 +336,7 @@
                     {% endif %}
                   </span>
                 </button>
+<!-- bold-ro-liquid --><div class="bold_add_to_orders" style="display: inline-block;"></div><!-- bold-ro-liquid -->
                 {% if section.settings.enable_payment_button %}
                   {{ form | payment_button }}
                 {% endif %}
@@ -367,7 +371,7 @@
 </div>
 {% unless product.empty == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
-    {{ product | json }}
+    {%- include 'bold-product', output: 'json' -%}
   </script>
 {% endunless %}
 

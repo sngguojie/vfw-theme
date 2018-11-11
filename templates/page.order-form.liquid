@@ -19,15 +19,16 @@ Use the following assign statement, replace 'your-collection-handle-here' with y
 Use the assign statement outside of this comment block at the top of your template.
 {% endcomment %}
 
-{% assign collection = collections.featured %}
-{% paginate collection.products by 100 %}
+{% assign collection = collections.all %}
+{% paginate collection.products by 200 %}
+{% assign t = 1000 %}
 
 <form action="/cart" method="post">
-  
+
   {% if template contains 'page' and page.content.size > 0 %}
     <div class="rte">
       {{ page.content }}
-    </div>  
+    </div>
   {% elsif collection.description.size > 0 %}
     <div class="rte">
       {{ collection.description }}
@@ -35,51 +36,89 @@ Use the assign statement outside of this comment block at the top of your templa
   {% endif %}
 
   {% if collection.products_count > 0 %}
-
-    <table style="background-color: white;">
-      <thead>
-        <tr class="{% cycle 'pure-table-odd', '' %}">
+    <table id="warehouse">
+      <tbody>
+         <tr>
           <td>
-            Product
+            Country
+          </td>
+          <td id="title">
+            Description
           </td>
           <td>
-            Region
+            Qty
+          </td>
+          <td class="usual-price">
+            Usual Price
           </td>
           <td>
-            Price
-          </td>
-          <td>
-            Qty left
+            Special Price
           </td>
           <td style="text-align:right;">
 			Order
           </td>
         </tr>
-      </thead>
-      <tbody>
-      {% for product in collection.products %}
+      {% for product in collection.products  %}
         {% if product.available %}
           {% for variant in product.variants %}
             {% if variant.available %}
-              <tr class="{% cycle 'pure-table-odd', '' %}">
+        		{% if variant.price > t %}
+					{% assign t = variant.price %}
+                  <tr>
+                    <td>
+                    </td>
+                    <td id="title">
+                      <span class="VerlagText-Black" style="margin-bottom: 0px; text-decoration: underline">{{ t | money }} Range</span>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td class="usual-price">
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td style="text-align:right;">
+                    </td>
+                  </tr>
+
+                {% endif %}
+
+              <tr>
                 <td>
-                   {{ product.title }}{% unless variant.title contains 'Default' %} - {{ variant.title }}{% endunless %}{% unless variant.sku == blank %} - {{ variant.sku }}{% endunless %}
-                </td>
-                <td>
-					{% assign attribute_keyword = 'Country_' %}
+					{% assign attribute_keyword = 'COUNTRY_' %}
                     {% for tag in product.tags %}
                         {% if forloop.first %}<dl>{% endif %}
                             {% if tag contains attribute_keyword %}
-                                {{ tag | remove: attribute_keyword | prepend: '<dd>' | append: '</dd>' }}
+                                {{ tag | remove: attribute_keyword }}
                             {% endif %}
                         {% if forloop.last %}</dl>{% endif %}
                     {% endfor %}
                 </td>
                 <td>
-                   {{ variant.price | money }}
+                  {{ product.title }}{% unless variant.title contains 'Default' %} - {{ variant.title }}{% endunless %}
+
+                  {% assign attribute_keyword = 'DISCOUNT_4FOR100' %}
+                    {% for tag in product.tags %}
+
+                  		{% if tag contains attribute_keyword %}
+							<br/><span>Any 4 For $100 (Discount Code: 4FOR100)</span>
+                  		{% endif %}
+
+                    {% endfor %}
+
                 </td>
                 <td>
                    {{ variant.inventory_quantity }}
+                </td>
+                <td class="usual-price">
+                  <del>{{ variant.compare_at_price | money }}</del>
+                </td>
+
+                <td>
+                  <del class="show-mobile">{{ variant.compare_at_price | money }}</del>
+                   {{ variant.price | money }}
                 </td>
                 <td style="text-align:right;">
                   <input name="updates[{{ variant.id }}]" onfocus="this.select()" class="quantity field" min="0" {% unless variant.inventory_management == blank or variant.inventory_policy == 'continue' %} max="{{ variant.inventory_quantity }}" {% endunless %} type="text" value="0" tabindex="1" />
@@ -91,11 +130,11 @@ Use the assign statement outside of this comment block at the top of your templa
       {% endfor %}
       </tbody>
     </table>
-    
+
     <div>
-      <input type="submit" value="Add to the cart" />
+      <input id="form-submit" type="submit" value="Add to the cart" />
     </div>
-  
+
   {% else %}
     <p>There are no products in this view.</p>
   {% endif %}
@@ -111,10 +150,10 @@ jQuery(function($) {
   $('[max]').change(function() {
     var max = parseInt($(this).attr('max'), 10);
     var value = parseInt($(this).val(), 10) || 0;
-    if (value > max) { 
+    if (value > max) {
       alert('We only have ' + max + ' of this item in stock');
-      $(this).val(max); 
-    }    
+      $(this).val(max);
+    }
   });
 });
 </script>

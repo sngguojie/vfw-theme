@@ -900,6 +900,14 @@ var ajaxCart = (function(module, $) {
   };
 
   buildCart = function(cart) {
+if(typeof window.BOLD !== 'undefined'
+  && typeof window.BOLD.common !== 'undefined'
+  && typeof window.BOLD.common.cartDoctor !== 'undefined') {
+    // NOTE: "cart" should be the variable containing the cart json data
+    cart = window.BOLD.common.cartDoctor.fix(cart);
+}
+
+
     // Start with a fresh cart div
     $cartContainer.empty();
 
@@ -926,6 +934,12 @@ var ajaxCart = (function(module, $) {
 
     // Add each item to our handlebars.js data
     $.each(cart.items, function(index, cartItem) {
+var recurring_desc = "";
+if(cartItem.properties_all  && cartItem.properties_all .frequency_num){
+    recurring_desc = "<span> Delivered Every " + cartItem.properties_all.frequency_num + " " +
+    cartItem.properties_all.frequency_type_text + " " +
+    cartItem.properties_all.discounted_price + " each" + "<span>";
+}
       /* Hack to get product image thumbnail
        *   - If image is not null
        *     - Remove file extension, add _small, and re-add extension
@@ -959,6 +973,7 @@ var ajaxCart = (function(module, $) {
         name: cartItem.product_title,
         variation: cartItem.variant_title,
         properties: cartItem.properties,
+recurring: recurring_desc,
         itemAdd: cartItem.quantity + 1,
         itemMinus: cartItem.quantity - 1,
         itemQty: cartItem.quantity,
