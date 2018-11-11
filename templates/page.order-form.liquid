@@ -1,0 +1,127 @@
+<!-- /templates/page.liquid -->
+<div class="grid">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+
+    <header class="section-header text-center">
+      <h1>{{ page.title }}</h1>
+      <hr class="hr--small">
+    </header>
+    <div id="custom-search-bar"></div>
+
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <div class="rte rte--nomargin rte--indented-images">
+{% comment %}
+Source: https://gist.github.com/carolineschnapp/9122054
+If you are not on a collection page, do define which collection to use in the order form.
+Use the following assign statement, replace 'your-collection-handle-here' with your collection handle.
+{% assign collection = collections.your-collection-handle-here %}
+Use the assign statement outside of this comment block at the top of your template.
+{% endcomment %}
+
+{% assign collection = collections.featured %}
+{% paginate collection.products by 100 %}
+
+<form action="/cart" method="post">
+  
+  {% if template contains 'page' and page.content.size > 0 %}
+    <div class="rte">
+      {{ page.content }}
+    </div>  
+  {% elsif collection.description.size > 0 %}
+    <div class="rte">
+      {{ collection.description }}
+    </div>
+  {% endif %}
+
+  {% if collection.products_count > 0 %}
+
+    <table style="background-color: white;">
+      <thead>
+        <tr class="{% cycle 'pure-table-odd', '' %}">
+          <td>
+            Product
+          </td>
+          <td>
+            Region
+          </td>
+          <td>
+            Price
+          </td>
+          <td>
+            Qty left
+          </td>
+          <td style="text-align:right;">
+			Order
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+      {% for product in collection.products %}
+        {% if product.available %}
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <tr class="{% cycle 'pure-table-odd', '' %}">
+                <td>
+                   {{ product.title }}{% unless variant.title contains 'Default' %} - {{ variant.title }}{% endunless %}{% unless variant.sku == blank %} - {{ variant.sku }}{% endunless %}
+                </td>
+                <td>
+					{% assign attribute_keyword = 'Country_' %}
+                    {% for tag in product.tags %}
+                        {% if forloop.first %}<dl>{% endif %}
+                            {% if tag contains attribute_keyword %}
+                                {{ tag | remove: attribute_keyword | prepend: '<dd>' | append: '</dd>' }}
+                            {% endif %}
+                        {% if forloop.last %}</dl>{% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                   {{ variant.price | money }}
+                </td>
+                <td>
+                   {{ variant.inventory_quantity }}
+                </td>
+                <td style="text-align:right;">
+                  <input name="updates[{{ variant.id }}]" onfocus="this.select()" class="quantity field" min="0" {% unless variant.inventory_management == blank or variant.inventory_policy == 'continue' %} max="{{ variant.inventory_quantity }}" {% endunless %} type="text" value="0" tabindex="1" />
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+    
+    <div>
+      <input type="submit" value="Add to the cart" />
+    </div>
+  
+  {% else %}
+    <p>There are no products in this view.</p>
+  {% endif %}
+
+</form>
+
+{% endpaginate %}
+
+{% if collection.products_count > 0 %}
+<script>
+jQuery(function($) {
+  $('table .quantity:first').focus();
+  $('[max]').change(function() {
+    var max = parseInt($(this).attr('max'), 10);
+    var value = parseInt($(this).val(), 10) || 0;
+    if (value > max) { 
+      alert('We only have ' + max + ' of this item in stock');
+      $(this).val(max); 
+    }    
+  });
+});
+</script>
+{% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
